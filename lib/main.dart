@@ -1,122 +1,177 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(VehicleListApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class VehicleListApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'Vehicle List',
+      home: VehicleListPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class VehicleListPage extends StatelessWidget {
+  static const _defaultPadding = 16.0;
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  final List<Vehicle> vehicles = [
+    Vehicle(
+      title: "JAC Cheetah Hero Brands",
+      location: "Jabi Modern Market - (8km away)",
+      range: "150Km Range - ₦20/km",
+      price: "₦20,000/hr",
+      image: "assets/images/image.png",
+    ),
+    Vehicle(
+      title: "Tesla Model S",
+      location: "Wuse Zone 5 - (12km away)",
+      range: "400Km Range - ₦25/km",
+      price: "₦35,000/hr",
+      image: "assets/images/tesla.png",
+    ),
+    Vehicle(
+      title: "Toyota Camry Hybrid",
+      location: "Garki Area 11 - (5km away)",
+      range: "200Km Range - ₦18/km",
+      price: "₦15,000/hr",
+      image: "assets/images/toyota.png",
+    ),
+    Vehicle(
+      title: "Mercedes EQS",
+      location: "Maitama - (15km away)",
+      range: "350Km Range - ₦30/km",
+      price: "₦40,000/hr",
+      image: "assets/images/mercedes.png",
+    ),
+    Vehicle(
+      title: "BMW iX",
+      location: "Asokoro - (10km away)",
+      range: "300Km Range - ₦28/km",
+      price: "₦38,000/hr",
+      image: "assets/images/bmw.png",
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      appBar: _buildAppBar(),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(_defaultPadding),
+        itemCount: vehicles.length,
+        itemBuilder: (context, index) => VehicleCard(vehicle: vehicles[index]),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      title: const Text('Vehicle List'),
+      leading: const BackButton(),
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
+      elevation: 0,
+    );
+  }
+}
+
+class Vehicle {
+  final String title;
+  final String location;
+  final String range;
+  final String price;
+  final String image;
+
+  const Vehicle({
+    required this.title,
+    required this.location,
+    required this.range,
+    required this.price,
+    required this.image,
+  });
+}
+
+class VehicleCard extends StatelessWidget {
+  static const _imageHeight = 180.0;
+  static const _spacing = 4.0;
+  static const _padding = 12.0;
+  static const _titleFontSize = 16.0;
+
+  final Vehicle vehicle;
+
+  const VehicleCard({required this.vehicle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildImage(),
+          Padding(
+            padding: const EdgeInsets.all(_padding),
+            child: _buildContent(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImage() {
+    return Image.asset(
+      vehicle.image,
+      height: _imageHeight,
+      width: double.infinity,
+      fit: BoxFit.cover,
+    );
+  }
+
+  Widget _buildContent() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildTitle(),
+              const SizedBox(height: _spacing),
+              _buildSubtext(vehicle.location),
+              const SizedBox(height: _spacing),
+              _buildSubtext(vehicle.range),
+            ],
+          ),
         ),
+        _buildPrice(),
+      ],
+    );
+  }
+
+  Widget _buildTitle() {
+    return Text(
+      vehicle.title,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: _titleFontSize,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget _buildSubtext(String text) {
+    return Text(text, style: const TextStyle(color: Colors.grey));
+  }
+
+  Widget _buildPrice() {
+    return Text(
+      vehicle.price,
+      style: const TextStyle(
+        fontSize: _titleFontSize,
+        color: Colors.teal,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 }
