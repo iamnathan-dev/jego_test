@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class VehicleDetailsPage extends StatelessWidget {
   final Map<String, String> vehicle;
 
-  const VehicleDetailsPage({required this.vehicle});
+  const VehicleDetailsPage({super.key, required this.vehicle});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,28 @@ class VehicleDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              vehicle["image"]!,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                vehicle["image"]!,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: double.infinity,
+                    height: 200,
+                    color: Colors.grey[200],
+                    child: const Center(
+                      child: Icon(
+                        Icons.image_not_supported,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 20),
@@ -124,6 +142,34 @@ class VehicleDetailsPage extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                minimumSize: const Size.fromHeight(40),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'Read More',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  Icon(Icons.arrow_forward, size: 16, color: Colors.white),
+                ],
+              ),
             ),
           ],
         ),

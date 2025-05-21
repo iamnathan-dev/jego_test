@@ -4,6 +4,8 @@ import './vehicle_details.dart';
 void main() => runApp(VehicleListApp());
 
 class VehicleListApp extends StatelessWidget {
+  const VehicleListApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(home: VehicleListPage());
@@ -18,11 +20,13 @@ class VehicleListPage extends StatelessWidget {
       "location": "Jabi Modern Market - (20km away)",
       "range": "150Km Range ~ 120km/hr",
       "price": "₦50,000/hr",
-      "image": "assets/images/image.png",
+      "image": "assets/images/car_${(index % 5) + 1}.jpg",
       "content":
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          "This sleek and powerful vehicle offers exceptional performance and comfort. Featuring advanced safety systems, premium leather interior, and state-of-the-art infotainment system. The smooth handling and responsive acceleration make every journey enjoyable. With excellent fuel efficiency and spacious cargo capacity, it's perfect for both city driving and long-distance travel. Regular maintenance and careful ownership ensure this vehicle is in pristine condition.",
     },
   );
+
+  VehicleListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,7 @@ class VehicleListPage extends StatelessWidget {
 class VehicleCard extends StatelessWidget {
   final Map<String, String> vehicle;
 
-  const VehicleCard({required this.vehicle});
+  const VehicleCard({super.key, required this.vehicle});
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +75,42 @@ class VehicleCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            vehicle["image"]!,
-            width: double.infinity,
-            fit: BoxFit.cover,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              vehicle["image"]!,
+              height: 200,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                if (wasSynchronouslyLoaded) return child;
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child:
+                      frame != null
+                          ? child
+                          : Container(
+                            width: double.infinity,
+                            height: 200,
+                            color: Colors.grey[200],
+                          ),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  width: double.infinity,
+                  height: 200,
+                  color: Colors.grey[200],
+                  child: const Center(
+                    child: Icon(
+                      Icons.image_not_supported,
+                      size: 40,
+                      color: Colors.grey,
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 12, bottom: 12),
