@@ -83,7 +83,7 @@ class VehicleDetailsPage extends StatelessWidget {
             const SizedBox(height: 20),
             const Text(
               "Vehicle Features",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 10),
             Row(
@@ -92,13 +92,13 @@ class VehicleDetailsPage extends StatelessWidget {
                 Column(
                   children: [
                     Icon(Icons.directions_car, color: Colors.black, size: 32),
-                    Text('Type', style: TextStyle(fontSize: 12)),
+                    Text('Lexus ES350', style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 Column(
                   children: [
                     Icon(Icons.speed, color: Colors.black, size: 32),
-                    Text('Speed', style: TextStyle(fontSize: 12)),
+                    Text('250km/hr', style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 Column(
@@ -108,23 +108,19 @@ class VehicleDetailsPage extends StatelessWidget {
                       color: Colors.black,
                       size: 32,
                     ),
-                    Text('Fuel', style: TextStyle(fontSize: 12)),
+                    Text('300lt tank', style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 Column(
                   children: [
-                    Icon(Icons.settings, color: Colors.black, size: 32),
-                    Text('Settings', style: TextStyle(fontSize: 12)),
+                    Icon(Icons.usb, color: Colors.black, size: 32),
+                    Text('12V USB Port', style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 Column(
                   children: [
-                    Icon(
-                      Icons.battery_charging_full,
-                      color: Colors.black,
-                      size: 32,
-                    ),
-                    Text('Battery', style: TextStyle(fontSize: 12)),
+                    Icon(Icons.shield_outlined, color: Colors.black, size: 32),
+                    Text('Titanium', style: TextStyle(fontSize: 12)),
                   ],
                 ),
               ],
