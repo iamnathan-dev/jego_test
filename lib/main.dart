@@ -1,176 +1,122 @@
 import 'package:flutter/material.dart';
+import './vehicle_details.dart';
 
 void main() => runApp(VehicleListApp());
 
 class VehicleListApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Vehicle List',
-      home: VehicleListPage(),
-      debugShowCheckedModeBanner: false,
-    );
+    return MaterialApp(home: VehicleListPage());
   }
 }
 
 class VehicleListPage extends StatelessWidget {
-  static const _defaultPadding = 16.0;
-
-  final List<Vehicle> vehicles = [
-    Vehicle(
-      title: "JAC Cheetah Hero Brands",
-      location: "Jabi Modern Market - (8km away)",
-      range: "150Km Range - ₦20/km",
-      price: "₦20,000/hr",
-      image: "assets/images/image.png",
-    ),
-    Vehicle(
-      title: "Tesla Model S",
-      location: "Wuse Zone 5 - (12km away)",
-      range: "400Km Range - ₦25/km",
-      price: "₦35,000/hr",
-      image: "assets/images/tesla.png",
-    ),
-    Vehicle(
-      title: "Toyota Camry Hybrid",
-      location: "Garki Area 11 - (5km away)",
-      range: "200Km Range - ₦18/km",
-      price: "₦15,000/hr",
-      image: "assets/images/toyota.png",
-    ),
-    Vehicle(
-      title: "Mercedes EQS",
-      location: "Maitama - (15km away)",
-      range: "350Km Range - ₦30/km",
-      price: "₦40,000/hr",
-      image: "assets/images/mercedes.png",
-    ),
-    Vehicle(
-      title: "BMW iX",
-      location: "Asokoro - (10km away)",
-      range: "300Km Range - ₦28/km",
-      price: "₦38,000/hr",
-      image: "assets/images/bmw.png",
-    ),
-  ];
+  final List<Map<String, String>> vehicles = List.generate(
+    50,
+    (index) => {
+      "title": "JAC CHeetah Hero Brands",
+      "location": "Jabi Modern Market - (20km away)",
+      "range": "150Km Range ~ 120km/hr",
+      "price": "₦50,000/hr",
+      "image": "assets/images/image.png",
+      "content":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text('Vehicle List'),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+      ),
       body: ListView.builder(
-        padding: const EdgeInsets.all(_defaultPadding),
+        padding: const EdgeInsets.all(16),
         itemCount: vehicles.length,
-        itemBuilder: (context, index) => VehicleCard(vehicle: vehicles[index]),
+        itemBuilder: (context, index) {
+          final vehicle = vehicles[index];
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => VehicleDetailsPage(vehicle: vehicle),
+                ),
+              );
+            },
+            child: VehicleCard(vehicle: vehicle),
+          );
+        },
       ),
     );
   }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      title: const Text('Vehicle List'),
-      leading: const BackButton(),
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.black,
-      elevation: 0,
-    );
-  }
-}
-
-class Vehicle {
-  final String title;
-  final String location;
-  final String range;
-  final String price;
-  final String image;
-
-  const Vehicle({
-    required this.title,
-    required this.location,
-    required this.range,
-    required this.price,
-    required this.image,
-  });
 }
 
 class VehicleCard extends StatelessWidget {
-  static const _imageHeight = 180.0;
-  static const _spacing = 4.0;
-  static const _padding = 12.0;
-  static const _titleFontSize = 16.0;
-
-  final Vehicle vehicle;
+  final Map<String, String> vehicle;
 
   const VehicleCard({required this.vehicle});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 30),
+      margin: const EdgeInsets.only(bottom: 20),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+      elevation: 0,
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildImage(),
+          Image.asset(
+            vehicle["image"]!,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
           Padding(
-            padding: const EdgeInsets.all(_padding),
-            child: _buildContent(),
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        vehicle["title"]!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        vehicle["location"]!,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        vehicle["range"]!,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  vehicle["price"]!,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.teal,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildImage() {
-    return Image.asset(
-      vehicle.image,
-      height: _imageHeight,
-      width: double.infinity,
-      fit: BoxFit.cover,
-    );
-  }
-
-  Widget _buildContent() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildTitle(),
-              const SizedBox(height: _spacing),
-              _buildSubtext(vehicle.location),
-              const SizedBox(height: _spacing),
-              _buildSubtext(vehicle.range),
-            ],
-          ),
-        ),
-        _buildPrice(),
-      ],
-    );
-  }
-
-  Widget _buildTitle() {
-    return Text(
-      vehicle.title,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: _titleFontSize,
-      ),
-    );
-  }
-
-  Widget _buildSubtext(String text) {
-    return Text(text, style: const TextStyle(color: Colors.grey));
-  }
-
-  Widget _buildPrice() {
-    return Text(
-      vehicle.price,
-      style: const TextStyle(
-        fontSize: _titleFontSize,
-        color: Colors.teal,
-        fontWeight: FontWeight.bold,
       ),
     );
   }
