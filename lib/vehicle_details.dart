@@ -6,13 +6,36 @@ class VehicleDetailsPage extends StatelessWidget {
 
   const VehicleDetailsPage({super.key, required this.vehicle});
 
+  Widget _buildFeatureColumn(IconData icon, String text) {
+    return Column(
+      children: [
+        Icon(icon, color: Colors.black, size: 32),
+        Text(text, style: const TextStyle(fontSize: 12)),
+      ],
+    );
+  }
+
+  Widget _buildInfoText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(color: Color.fromARGB(255, 118, 117, 117)),
+    );
+  }
+
+  String _capitalizeFirstLetter(String text) {
+    if (text.isEmpty) return '';
+    return text[0].toUpperCase() + text.substring(1).toLowerCase();
+  }
+
   @override
   Widget build(BuildContext context) {
+    const textGrey = Color.fromARGB(255, 118, 117, 117);
+    const spacing = SizedBox(height: 20);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          (vehicle['title'] ?? '').toUpperCase().substring(0, 1) +
-              (vehicle['title'] ?? '').substring(1).toLowerCase(),
+          _capitalizeFirstLetter(vehicle['title'] ?? ''),
           style: const TextStyle(fontSize: 17),
         ),
         backgroundColor: Colors.white,
@@ -32,20 +55,19 @@ class VehicleDetailsPage extends StatelessWidget {
                 height: 200,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: double.infinity,
-                    height: 200,
-                    color: Colors.grey[200],
-                    child: const Center(
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 40,
-                        color: Colors.grey,
+                errorBuilder:
+                    (_, __, ___) => Container(
+                      width: double.infinity,
+                      height: 200,
+                      color: Colors.grey[200],
+                      child: const Center(
+                        child: Icon(
+                          Icons.image_not_supported,
+                          size: 40,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
-                  );
-                },
               ),
             ),
             Padding(
@@ -65,19 +87,9 @@ class VehicleDetailsPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        Text(
-                          vehicle["location"]!,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 118, 117, 117),
-                          ),
-                        ),
+                        _buildInfoText(vehicle["location"]!),
                         const SizedBox(height: 4),
-                        Text(
-                          vehicle["range"]!,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 118, 117, 117),
-                          ),
-                        ),
+                        _buildInfoText(vehicle["range"]!),
                       ],
                     ),
                   ),
@@ -94,12 +106,9 @@ class VehicleDetailsPage extends StatelessWidget {
             ),
             Text(
               vehicle["content"]!,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Color.fromARGB(255, 118, 117, 117),
-              ),
+              style: const TextStyle(fontSize: 14, color: textGrey),
             ),
-            const SizedBox(height: 20),
+            spacing,
             const Text(
               "Vehicle Features",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
@@ -107,54 +116,24 @@ class VehicleDetailsPage extends StatelessWidget {
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                Column(
-                  children: [
-                    Icon(Icons.directions_car, color: Colors.black, size: 32),
-                    Text('Lexus ES350', style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(Icons.speed, color: Colors.black, size: 32),
-                    Text('250km/hr', style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(
-                      Icons.local_gas_station,
-                      color: Colors.black,
-                      size: 32,
-                    ),
-                    Text('300lt tank', style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(Icons.usb, color: Colors.black, size: 32),
-                    Text('12V USB Port', style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(Icons.shield_outlined, color: Colors.black, size: 32),
-                    Text('Titanium', style: TextStyle(fontSize: 12)),
-                  ],
-                ),
+              children: [
+                _buildFeatureColumn(Icons.directions_car, 'Lexus ES350'),
+                _buildFeatureColumn(Icons.speed, '250km/hr'),
+                _buildFeatureColumn(Icons.local_gas_station, '300lt tank'),
+                _buildFeatureColumn(Icons.usb, '12V USB Port'),
+                _buildFeatureColumn(Icons.shield_outlined, 'Titanium'),
               ],
             ),
-
-            const SizedBox(height: 20),
+            spacing,
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VehicleContactPage(vehicle: vehicle),
+              onPressed:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => VehicleContactPage(vehicle: vehicle),
+                    ),
                   ),
-                );
-              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,
                 padding: const EdgeInsets.symmetric(
@@ -170,7 +149,7 @@ class VehicleDetailsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    'Read More',
+                    'Contact Rental',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white,
