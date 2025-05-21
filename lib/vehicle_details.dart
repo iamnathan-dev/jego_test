@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './vehicl_contact.dart';
 
 class VehicleDetailsPage extends StatelessWidget {
   final Map<String, String> vehicle;
@@ -146,7 +147,14 @@ class VehicleDetailsPage extends StatelessWidget {
 
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VehicleContactPage(vehicle: vehicle),
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,
                 padding: const EdgeInsets.symmetric(
@@ -154,6 +162,9 @@ class VehicleDetailsPage extends StatelessWidget {
                   vertical: 8,
                 ),
                 minimumSize: const Size.fromHeight(40),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(9),
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
