@@ -73,7 +73,6 @@ class VehicleDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
-
             Text(
               vehicle["content"]!,
               style: const TextStyle(
@@ -81,29 +80,25 @@ class VehicleDetailsPage extends StatelessWidget {
                 color: Color.fromARGB(255, 118, 117, 117),
               ),
             ),
-
             const SizedBox(height: 20),
-
             const Text(
               "Vehicle Features",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-
             const SizedBox(height: 10),
-
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: const [
                 Column(
                   children: [
                     Icon(Icons.directions_car, color: Colors.black, size: 32),
-                    const Text('Type', style: TextStyle(fontSize: 12)),
+                    Text('Type', style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 Column(
                   children: [
                     Icon(Icons.speed, color: Colors.black, size: 32),
-                    const Text('Speed', style: TextStyle(fontSize: 12)),
+                    Text('Speed', style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 Column(
@@ -113,13 +108,13 @@ class VehicleDetailsPage extends StatelessWidget {
                       color: Colors.black,
                       size: 32,
                     ),
-                    const Text('Fuel', style: TextStyle(fontSize: 12)),
+                    Text('Fuel', style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 Column(
                   children: [
                     Icon(Icons.settings, color: Colors.black, size: 32),
-                    const Text('Settings', style: TextStyle(fontSize: 12)),
+                    Text('Settings', style: TextStyle(fontSize: 12)),
                   ],
                 ),
                 Column(
@@ -129,7 +124,7 @@ class VehicleDetailsPage extends StatelessWidget {
                       color: Colors.black,
                       size: 32,
                     ),
-                    const Text('Battery', style: TextStyle(fontSize: 12)),
+                    Text('Battery', style: TextStyle(fontSize: 12)),
                   ],
                 ),
               ],
