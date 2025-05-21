@@ -81,6 +81,59 @@ class VehicleDetailsPage extends StatelessWidget {
                 color: Color.fromARGB(255, 118, 117, 117),
               ),
             ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              "Vehicle Features",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+
+            const SizedBox(height: 10),
+
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Icon(Icons.directions_car, color: Colors.black, size: 32),
+                    const Text('Type', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(Icons.speed, color: Colors.black, size: 32),
+                    const Text('Speed', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      Icons.local_gas_station,
+                      color: Colors.black,
+                      size: 32,
+                    ),
+                    const Text('Fuel', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(Icons.settings, color: Colors.black, size: 32),
+                    const Text('Settings', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      Icons.battery_charging_full,
+                      color: Colors.black,
+                      size: 32,
+                    ),
+                    const Text('Battery', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ),

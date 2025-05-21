@@ -14,7 +14,7 @@ class VehicleListPage extends StatelessWidget {
   final List<Map<String, String>> vehicles = List.generate(
     50,
     (index) => {
-      "title": "JAC CHeetah Hero Brands",
+      "title": "JéGO Rental Merchants",
       "location": "Jabi Modern Market - (20km away)",
       "range": "150Km Range ~ 120km/hr",
       "price": "₦50,000/hr",
@@ -77,7 +77,7 @@ class VehicleCard extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.only(top: 12, bottom: 12),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
